@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team Sync - Minutes of Meeting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+        
+        :root {
+            --primary: #1E3A8A; /* Academic Navy Blue */
+            --primary-light: #EFF6FF;
+            --text-main: #0F172A;
+            --text-muted: #334155;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-top: 6px solid var(--primary);
+        }
+
+        .header {
+            background: #FFFFFF;
+            color: var(--text-main);
+            padding: 40px 40px 30px 40px;
+            position: relative;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            margin: 0 0 16px 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            color: #64748B;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        /* Style all levels of headers in content */
+        h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 15px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+            color: var(--text-muted);
+        }
+
+        ul, ol {
+            margin: 0 0 24px 0;
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Checkbox Lists */
+        .task-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: #F9FAFB;
+            border: 1px solid var(--border-color);
+        }
+
+        .checkbox {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #D1D5DB;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .checkbox.checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .task-item.checked {
+            text-decoration: line-through;
+            color: #9CA3AF;
+            background-color: #F3F4F6;
+        }
+
+        .institution {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .center-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #64748B;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            border-top: 1px solid var(--border-color);
+            background-color: #F9FAFB;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="institution">K S RANGASAMY COLLEGE OF TECHNOLOGY</div>
+            <div class="center-name">TRAIT CENTER</div>
+            <span class="badge">Minutes of Meeting</span>
+            <h1>Team Sync</h1>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Meeting ID</span>
+                    <span class="meta-value">#21</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Date & Time</span>
+                    <span class="meta-value">2026-07-13 21:56:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h4>1. Meeting Metadata</h4>
+<ul>
+<li><strong>Meeting Title:</strong> Team Sync</li>
+<li><strong>Date &amp; Time:</strong> 2026-07-13 21:56:00</li>
+<li><strong>Meeting ID:</strong> #21</li>
+</ul>
+<h4>2. Key Discussion Points</h4>
+<ul>
+<li>[Speaker 1]: Thank you.</li>
+</ul>
+<h4>3. Major Decisions Made</h4>
+<ul>
+<li>*No AI model was active to extract decisions. Please refer to the transcript above.*</li>
+</ul>
+<h4>4. Action Items</h4>
+<ul class='task-list'>
+<li class='task-item'><span class='checkbox'></span><span>Review raw transcript for action items.</span></li>
+</ul>
+        </div>
+
+        <footer>
+            Generated automatically by Meet Meeting Assistant on 2026-07-13 21:59:23<br>
+            <strong>K S Rangasamy College of Technology — TRAIT Center</strong>
+        </footer>
+    </div>
+</body>
+</html>

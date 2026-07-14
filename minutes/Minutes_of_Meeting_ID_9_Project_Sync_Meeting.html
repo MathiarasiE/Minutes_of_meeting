@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Sync Meeting - Minutes of Meeting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #EEF2F6;
+            --primary-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            --text-main: #1F2937;
+            --text-muted: #4B5563;
+            --bg-body: #F3F4F6;
+            --bg-card: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            color: #FFFFFF;
+            padding: 40px;
+            position: relative;
+        }
+
+        .badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            margin: 0 0 16px 0;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 16px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        /* Style all levels of headers in content */
+        h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 15px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        p {
+            margin: 0 0 16px 0;
+            color: var(--text-muted);
+        }
+
+        ul, ol {
+            margin: 0 0 24px 0;
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Checkbox Lists */
+        .task-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: #F9FAFB;
+            border: 1px solid var(--border-color);
+        }
+
+        .checkbox {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #D1D5DB;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .checkbox.checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .task-item.checked {
+            text-decoration: line-through;
+            color: #9CA3AF;
+            background-color: #F3F4F6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            border-top: 1px solid var(--border-color);
+            background-color: #F9FAFB;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="badge">Minutes of Meeting</span>
+            <h1>Project Sync Meeting</h1>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Meeting ID</span>
+                    <span class="meta-value">#9</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Date & Time</span>
+                    <span class="meta-value">2026-06-19 22:00:08</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>Fallback summary</p>
+<ul>
+<li>Full Transcript:</li>
+<li>you</li>
+<li>Intermediate Summaries:</li>
+<li>None</li>
+</ul>
+        </div>
+
+        <footer>
+            Generated automatically by Meet Meeting Assistant on 2026-06-19 22:26:53
+        </footer>
+    </div>
+</body>
+</html>
