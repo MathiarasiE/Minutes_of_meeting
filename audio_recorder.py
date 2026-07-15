@@ -2,7 +2,7 @@ import sounddevice as sd
 import numpy as np
 import queue
 import threading
-from config import SAMPLE_RATE, CHANNELS
+from config import SAMPLE_RATE, CHANNELS, AUDIO_GAIN
 
 
 class AudioRecorder:
@@ -21,7 +21,9 @@ class AudioRecorder:
     def _callback(self, indata, frames, time_info, status):
         if status:
             print(f"[Audio] Warning: {status}")
-        self._q.put(indata[:, 0].copy())   # mono
+        # Scale audio samples digitally by AUDIO_GAIN
+        scaled_data = indata[:, 0] * AUDIO_GAIN
+        self._q.put(scaled_data.copy())   # mono
 
     def start(self):
         self._running = True

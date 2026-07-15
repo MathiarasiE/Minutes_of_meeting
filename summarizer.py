@@ -3,7 +3,11 @@ import re
 import json
 import requests
 
-from llama_cpp import Llama
+try:
+    from llama_cpp import Llama
+except ImportError:
+    Llama = None
+
 from config import (
     QWEN_MODEL,
     LLAMA_N_CTX,
@@ -26,14 +30,19 @@ class QwenSummarizer:
             print(f"[Summarizer] Configured to use Ollama at {OLLAMA_URL}, model '{OLLAMA_MODEL}'.")
         else:
             if os.path.isfile(QWEN_MODEL):
-                print("[Summarizer] Loading Qwen2.5 model ...")
-                self._llm = Llama(
-                    model_path=QWEN_MODEL,
-                    n_ctx=LLAMA_N_CTX,
-                    n_threads=LLAMA_N_THREADS,
-                    verbose=False,
-                )
-                print("[Summarizer] Model loaded.")
+                if Llama is None:
+                    print(
+                        "[Summarizer] ERROR: 'llama-cpp-python' is not installed, but local model path is set. Please install it or use Ollama."
+                    )
+                else:
+                    print("[Summarizer] Loading Qwen2.5 model ...")
+                    self._llm = Llama(
+                        model_path=QWEN_MODEL,
+                        n_ctx=LLAMA_N_CTX,
+                        n_threads=LLAMA_N_THREADS,
+                        verbose=False,
+                    )
+                    print("[Summarizer] Model loaded.")
             else:
                 print(
                     f"[Summarizer] Qwen model not found at {QWEN_MODEL}; using fallback summaries."

@@ -219,15 +219,19 @@ def _send_summary_text(meeting_id: int, summary: str, recipient: str, attachment
 
 
 def _capture_phrase_to_text(transcriber: WhisperTranscriber) -> str:
+    from config import AUDIO_GAIN
     frames = int(SAMPLE_RATE * VOICE_TRIGGER_WINDOW_SECONDS)
     audio = sd.rec(frames, samplerate=SAMPLE_RATE, channels=CHANNELS, dtype="float32")
     sd.wait()
+
+    # Scale raw recorded voice trigger audio digitally by AUDIO_GAIN
+    audio_scaled = audio * AUDIO_GAIN
 
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
         tmp_path = tmp.name
 
     try:
-        sf.write(tmp_path, audio, SAMPLE_RATE)
+        sf.write(tmp_path, audio_scaled, SAMPLE_RATE)
         return transcriber.transcribe(tmp_path)
     finally:
         if os.path.exists(tmp_path):

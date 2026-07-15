@@ -49,26 +49,34 @@ class PyannoteDiarizer:
             self.enabled = False
 
     def diarize(self, audio_path: str) -> list[dict]:
-        """
-        Runs speaker diarization on a WAV file.
-        Returns a list of dicts: [{'start': float, 'end': float, 'speaker': str}]
-        """
         if not self.enabled or self._pipeline is None:
             return []
 
         try:
+            import torchaudio
+
             print(f"[PyannoteDiarizer] Running diarization on {audio_path}...")
-            diarization = self._pipeline(audio_path)
-            
+
+            waveform, sample_rate = torchaudio.load(audio_path)
+
+            diarization = self._pipeline({
+                "waveform": waveform,
+                "sample_rate": sample_rate,
+            })
+
             results = []
+
             for turn, _, speaker in diarization.itertracks(yield_label=True):
                 results.append({
                     "start": turn.start,
                     "end": turn.end,
                     "speaker": speaker
                 })
+
             print(f"[PyannoteDiarizer] Found {len(results)} speaker segments.")
+
             return results
+
         except Exception as e:
             print(f"[PyannoteDiarizer] Error during diarization: {e}")
             return []

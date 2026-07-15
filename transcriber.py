@@ -2,7 +2,7 @@ from functools import lru_cache
 
 from faster_whisper import WhisperModel
 
-from config import WHISPER_COMPUTE_TYPE, WHISPER_DEVICE, WHISPER_MODEL, WHISPER_TASK, WHISPER_LANGUAGE
+from config import WHISPER_COMPUTE_TYPE, WHISPER_DEVICE, WHISPER_MODEL, WHISPER_TASK, WHISPER_LANGUAGE, VAD_THRESHOLD
 
 
 class WhisperTranscriber:
@@ -34,6 +34,7 @@ class WhisperTranscriber:
                 language=WHISPER_LANGUAGE,
                 task=WHISPER_TASK,
                 vad_filter=True,
+                vad_parameters=dict(threshold=VAD_THRESHOLD),
                 condition_on_previous_text=False,
             )
             return " ".join(segment.text.strip() for segment in segments).strip()
@@ -52,6 +53,7 @@ class WhisperTranscriber:
                 language=WHISPER_LANGUAGE,
                 task=WHISPER_TASK,
                 vad_filter=True,
+                vad_parameters=dict(threshold=VAD_THRESHOLD),
                 condition_on_previous_text=False,
             )
             return list(segments)
